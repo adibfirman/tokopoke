@@ -1,4 +1,4 @@
-import React,{ Suspense } from 'react';
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { LazyHomePage } from "pages/Home";
@@ -10,7 +10,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={LazyHomePage} />
-          <Route path="/detail" component={LazyDetailPage} />
+          <Route path="/detail/:name" component={LazyDetailPage} />
         </Switch>
       </Router>
     </Suspense>

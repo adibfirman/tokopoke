@@ -9,7 +9,9 @@ import { Provider } from "./Stores";
 ReactDOM.render(
   <React.StrictMode>
     <Provider>
-      <App />
+      <div className="app">
+        <App />
+      </div>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

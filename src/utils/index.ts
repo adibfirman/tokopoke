@@ -1,4 +1,4 @@
-export function getImgPokemon(id: number) {
+export function getImgPokemon(id: number | undefined | null) {
   return `https://pokeres.bastionbot.org/images/pokemon/${id}.png`;
 }
 

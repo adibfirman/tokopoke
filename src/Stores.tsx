@@ -1,15 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
 
+type PokemonType = { id: number; nickname: string; name: string };
+
 interface IOwnedPokemon {
-  pokemons: Array<{ id: number; nickname: string }>;
-  setPokemons: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: number;
-        nickname: string;
-      }[]
-    >
-  >;
+  pokemons: Array<PokemonType>;
+  addNewCollections: ({ id, nickname, name }: PokemonType) => void;
+  generateChance: () => boolean;
 }
 
 const Context = createContext({} as IOwnedPokemon);
@@ -17,8 +13,19 @@ const Context = createContext({} as IOwnedPokemon);
 export function Provider({ children }: React.PropsWithChildren<{}>) {
   const [pokemons, setPokemons] = useState<IOwnedPokemon["pokemons"]>([]);
 
+  function generateChance() {
+    const getRandomNum = Math.random() * 100;
+    const successChance = 50;
+    if (getRandomNum <= successChance) return true;
+    else return false;
+  }
+
+  function addNewCollections(params: PokemonType) {
+    setPokemons((prevPokemons) => [...prevPokemons, params]);
+  }
+
   return (
-    <Context.Provider value={{ pokemons, setPokemons }}>
+    <Context.Provider value={{ pokemons, addNewCollections, generateChance }}>
       {children}
     </Context.Provider>
   );

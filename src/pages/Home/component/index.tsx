@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { useFetch } from "utils";
 import { GET_LIST } from "../API_URL";
@@ -13,6 +13,7 @@ export default function HomePage() {
   else
     return (
       <>
+        <Link to="/my-list">My List</Link>
         {result?.results.map((pokemon, i) => (
           <Pokemon key={i.toString()} {...pokemon} />
         ))}

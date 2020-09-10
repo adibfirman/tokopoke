@@ -6,6 +6,7 @@ interface IOwnedPokemon {
   pokemons: Array<PokemonType>;
   addNewCollections: ({ id, nickname, name }: PokemonType) => void;
   generateChance: () => boolean;
+  removeCollections: (id: number) => void;
 }
 
 const Context = createContext({} as IOwnedPokemon);
@@ -24,8 +25,15 @@ export function Provider({ children }: React.PropsWithChildren<{}>) {
     setPokemons((prevPokemons) => [...prevPokemons, params]);
   }
 
+  function removeCollections(id: number) {
+    const filterList = pokemons.filter((pokemon) => pokemon.id !== id);
+    setPokemons(filterList);
+  }
+
   return (
-    <Context.Provider value={{ pokemons, addNewCollections, generateChance }}>
+    <Context.Provider
+      value={{ pokemons, addNewCollections, generateChance, removeCollections }}
+    >
       {children}
     </Context.Provider>
   );

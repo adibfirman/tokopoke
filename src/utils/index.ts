@@ -5,7 +5,11 @@ export function getImgPokemon(id: number | undefined | null) {
 export function getIDPokemon(url: string) {
   const splitURL = url.split("/");
 
-  return splitURL[splitURL.length - 2];
+  return parseFloat(splitURL[splitURL.length - 2]);
+}
+
+export function capitalizeText(text: string) {
+  return text.charAt(0).toUpperCase() + text.substr(1);
 }
 
 export { default as useFetch } from "./useFetch";

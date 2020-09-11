@@ -29,7 +29,7 @@ export default function HomePage() {
           />
         </div>
         <div className="grid grid-flow-col grid-cols-2 gap-4 px-10 h-24">
-          <button className="bg-mycolor-60 font-bold py-2 px-4 rounded inline-flex items-center text-center flex justify-center">
+          <div className="bg-mycolor-60 font-bold py-2 px-4 rounded items-center text-center flex justify-center">
             <svg
               className="fill-current w-6 h-6 mr-2"
               xmlns="http://www.w3.org/2000/svg"
@@ -45,9 +45,9 @@ export default function HomePage() {
               />
             </svg>
             <span>Total in here ({result?.results.length ?? 0})</span>
-          </button>
+          </div>
           <button
-            className="bg-mycolor-60 font-bold py-2 px-4 rounded inline-flex items-center text-center flex justify-center"
+            className="bg-mycolor-60 font-bold py-2 px-4 rounded items-center text-center flex justify-center"
             onClick={() => history.push("/my-list")}
           >
             <svg
@@ -89,7 +89,7 @@ function Pokemon({ name, url }: Types.ResultsType) {
       className="p-2 bg-mycolor-150 rounded"
       onClick={() => history.push(`/detail/${name}`)}
     >
-      <div className="grid grid-flow-col justify-between">
+      <div className="grid grid-flow-col justify-between items-center">
         <p>{capitalizeText(name)}</p>
         <input type="checkbox" defaultChecked={countOwned > 0} />
       </div>

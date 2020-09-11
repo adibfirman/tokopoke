@@ -1,12 +1,13 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-import { useFetch, getImgPokemon } from "utils";
+import { useFetch, getImgPokemon, capitalizeText } from "utils";
 import { useStore } from "Stores";
 import { Get_Detail } from "../API_URL";
 import * as Types from "../types";
 
 const PROMPT_TEXT = "Gotcha...!! you catch me, give it an awesome nickname...";
+const MAP_NAME_STAT = ["SPD", "DEF-S", "ATT-S", "DEF", "ATT", "HP"];
 
 export default function DetailPage(
   props: RouteComponentProps<{ name: string }>
@@ -64,11 +65,46 @@ export default function DetailPage(
           </button>
         </div>
         <img
-          width="55%"
-          className="m-auto object-contain"
+          width="157px"
+          height="157px"
+          className="m-auto object-contain mt-6"
           alt={result?.name}
           src={getImgPokemon(result?.id)}
         />
+        <p className="text-white font-bold text-center text-3xl mt-12">
+          {capitalizeText(result?.name ?? "")}
+        </p>
+        <div className="grid grid-cols-4 grid-rows-2 gap-4">
+          {result?.stats.map((stat, i) => (
+            <div
+              key={i.toString()}
+              className="grid grid-flow-row content-evenly justify-center rounded"
+            >
+              <p className="text-center w-16 border-b-2 border-mycolor-90">
+                {stat.base_stat}
+              </p>
+              <p className="text-center font-semibold text-mycolor-80">
+                {MAP_NAME_STAT[i]}
+              </p>
+            </div>
+          ))}
+          <div className="grid grid-flow-row content-evenly justify-center rounded">
+            <p className="text-center w-16 border-b-2 border-mycolor-90">
+              {result?.height ?? 0}
+              <span className="text-center font-semibold text-mycolor-90">
+                m
+              </span>
+            </p>
+            <p className="text-center font-semibold text-mycolor-80">HEIGHT</p>
+          </div>
+          <div className="grid grid-flow-row content-evenly justify-center rounded">
+            <p className="text-center w-16 border-b-2 border-mycolor-90">
+              {result?.weight ?? 0}
+              <span className="text-mycolor-90">kg</span>
+            </p>
+            <p className="text-center font-semibold text-mycolor-80">WEIGHT</p>
+          </div>
+        </div>
       </div>
     );
 }

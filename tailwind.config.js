@@ -9,6 +9,7 @@ const THEME_CUSTOM = {
   "mycolor-120": "#5B4C95",
   "mycolor-150": "#44486D",
   "mycolor-180": "#2E343E",
+  "mycolor-190": "#cfecff",
 };
 
 module.exports = {

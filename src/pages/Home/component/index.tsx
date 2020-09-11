@@ -16,6 +16,9 @@ export default function HomePage() {
     return result?.results.filter(({ name }) => name.search(regex) > -1);
   }, [result, search]);
 
+  const disableMyList =
+    pokemons.length === 0 && `bg-mycolor-180 cursor-not-allowed`;
+
   if (isLoading) return <>Loading...</>;
   else
     return (
@@ -47,8 +50,9 @@ export default function HomePage() {
             <span>Total in here ({result?.results.length ?? 0})</span>
           </div>
           <button
-            className="bg-mycolor-60 font-bold py-2 px-4 rounded items-center text-center flex justify-center"
+            className={`bg-mycolor-60 font-bold py-2 px-4 rounded items-center text-center flex justify-center ${disableMyList}`}
             onClick={() => history.push("/my-list")}
+            disabled={pokemons.length === 0}
           >
             <svg
               className="fill-current w-6 h-6 mr-2"

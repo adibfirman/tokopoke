@@ -46,41 +46,36 @@ export default function MyListPage({ history }: RouteComponentProps) {
         </button>
       </div>
       <div className="grid grid-cols-2 grid-rows-none gap-4">
-        {Array(5)
-          .fill({ id: 1, name: "bulbasaur", nickname: "bulbasaur 123" })
-          .map((pokemon) => (
-            <div
-              key={pokemon.id}
-              className="bg-mycolor-150 rounded-lg p-2 grid"
+        {pokemons.map((pokemon) => (
+          <div key={pokemon.id} className="bg-mycolor-150 rounded-lg p-2 grid">
+            <svg
+              onClick={onRemoveClick(pokemon.id)}
+              className="w-6 h-6 justify-self-end cursor-pointer"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
             >
-              <svg
-                onClick={onRemoveClick(pokemon.id)}
-                className="w-6 h-6 justify-self-end cursor-pointer"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <img
-                width="100px"
-                height="100px"
-                className="m-auto object-contain mb-10"
-                alt={pokemon.name}
-                src={getImgPokemon(pokemon.id)}
+              <path
+                fillRule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clipRule="evenodd"
               />
-              <p className="text-white font-bold text-center text-3xl">
-                {pokemon.nickname}
-              </p>
-              <p className="text-center font-semibold text-mycolor-100">
-                {capitalizeText(pokemon.name)}
-              </p>
-            </div>
-          ))}
+            </svg>
+            <img
+              width="100px"
+              height="100px"
+              className="m-auto object-contain mb-10"
+              alt={pokemon.name}
+              src={getImgPokemon(pokemon.id)}
+            />
+            <p className="text-white font-bold text-center text-3xl">
+              {pokemon.nickname}
+            </p>
+            <p className="text-center font-semibold text-mycolor-190">
+              {capitalizeText(pokemon.name)}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );

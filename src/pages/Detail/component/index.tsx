@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 import { useFetch, getImgPokemon, capitalizeText } from "utils";
@@ -6,39 +6,57 @@ import { useStore } from "Stores";
 import { Get_Detail } from "../API_URL";
 import * as Types from "../types";
 
-const PROMPT_TEXT = "Gotcha...!! you catch me, give it an awesome nickname...";
+const PROMPT_TEXT = "Gotcha...!! you catch me, give me an awesome nickname...";
 const MAP_NAME_STAT = ["SPD", "DEF-S", "ATT-S", "DEF", "ATT", "HP"];
 
-export default function DetailPage(
-  props: RouteComponentProps<{ name: string }>
-) {
-  const { params } = props.match;
+export default function DetailPage({
+  match,
+  history,
+}: RouteComponentProps<{ name: string }>) {
+  const { params } = match;
   const URL = Get_Detail(params.name);
   const { isLoading, result } = useFetch<Types.IResponseAPI>(URL);
   const { generateChance, addNewCollections } = useStore();
+  const [isCatching, setIsCatching] = useState(false);
 
   function catchPoke() {
     const isAChance = generateChance();
-    if (isAChance) {
-      const nickname = prompt(PROMPT_TEXT);
 
-      if (nickname) {
-        addNewCollections({
-          id: result?.id ?? 0,
-          name: result?.name ?? "",
-          nickname,
-        });
+    setIsCatching(true);
+    setTimeout(() => {
+      setIsCatching(false);
+
+      if (!isAChance) alert("Sorry, try again.. :(");
+      else {
+        const nickname = prompt(PROMPT_TEXT);
+        if (nickname) {
+          addNewCollections({
+            id: result?.id ?? 0,
+            name: result?.name ?? "",
+            nickname,
+          });
+
+          history.push("/my-list");
+        }
       }
-    }
+    }, 1500);
   }
 
   if (isLoading) return <>Loading...</>;
   else
     return (
-      <div className="p-4">
+      <div className="p-4 relative">
+        {isCatching && (
+          <img
+            className="absolute left-0 w-full h-full object-cover opacity-75"
+            alt="loading..."
+            width="100%"
+            src={require("assets/pokeball.gif")}
+          />
+        )}
         <div className="grid grid-flow-col justify-between">
           <button
-            onClick={() => props.history.push("/")}
+            onClick={() => history.push("/")}
             className="flex items-center bg-transparent text-mycolor-90"
           >
             <svg

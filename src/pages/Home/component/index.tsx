@@ -79,19 +79,23 @@ export default function HomePage() {
 function Pokemon({ name, url }: Types.ResultsType) {
   const history = useHistory();
   const { pokemons } = useStore();
+  const id = getIDPokemon(url);
   const countOwned = useMemo(() => {
     return pokemons.filter((pokemon) => pokemon.name === name).length;
   }, [name, pokemons]);
-  const id = getIDPokemon(url);
+
+  const isAvailable = countOwned > 0;
+  const disableColor = isAvailable ? "bg-mycolor-180 cursor-not-allowed" : "";
 
   return (
     <button
-      className="p-2 bg-mycolor-150 rounded"
+      disabled={isAvailable}
+      className={`p-2 bg-mycolor-150 rounded ${disableColor}`}
       onClick={() => history.push(`/detail/${name}`)}
     >
       <div className="grid grid-flow-col justify-between items-center">
         <p>{capitalizeText(name)}</p>
-        <input type="checkbox" defaultChecked={countOwned > 0} />
+        <input type="checkbox" defaultChecked={isAvailable} />
       </div>
       <img
         className="m-auto mt-2"

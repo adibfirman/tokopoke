@@ -2,14 +2,14 @@ import React, { createContext, useContext, useState } from "react";
 
 type PokemonType = { id: number; nickname: string; name: string };
 
-interface IOwnedPokemon {
+export interface IOwnedPokemon {
   pokemons: Array<PokemonType>;
   addNewCollections: ({ id, nickname, name }: PokemonType) => void;
   generateChance: () => boolean;
   removeCollections: (id: number) => void;
 }
 
-const Context = createContext({} as IOwnedPokemon);
+export const Context = createContext({} as IOwnedPokemon);
 
 export function Provider({ children }: React.PropsWithChildren<{}>) {
   const [pokemons, setPokemons] = useState<IOwnedPokemon["pokemons"]>([]);
